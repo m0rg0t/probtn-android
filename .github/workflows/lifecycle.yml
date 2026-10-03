@@ -1,0 +1,36 @@
+name: Sample lifecycle regression
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  lifecycle:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Prove original API 11 lifecycle regression
+        run: |
+          export PATH="$JAVA_HOME_21_X64/bin:$PATH"
+          baseline="$RUNNER_TEMP/probtn-baseline"
+          mkdir -p "$baseline/tests" "$baseline/DemoProject/src/ru/hintsolutions/PizzaBtn"
+          cp tests/run_lifecycle_tests.py "$baseline/tests/"
+          for activity in MainActivity OtherActivity; do
+            path="DemoProject/src/ru/hintsolutions/PizzaBtn/$activity.java"
+            git show "0b93cabe18fa73950f27f818b507dbfa553bc922:$path" > "$baseline/$path"
+          done
+          if python3 "$baseline/tests/run_lifecycle_tests.py" > "$RUNNER_TEMP/baseline.log" 2>&1; then
+            cat "$RUNNER_TEMP/baseline.log"
+            echo "Expected the original lifecycle regression to fail"
+            exit 1
+          fi
+          cat "$RUNNER_TEMP/baseline.log"
+          grep -F 'MainActivity API 11 expected [open, create, resume, pause, resume, pause, destroy] got [open]' "$RUNNER_TEMP/baseline.log"
+      - name: Compile production activities and run offline lifecycle tests
+        run: |
+          export PATH="$JAVA_HOME_21_X64/bin:$PATH"
+          java -version
+          python3 tests/run_lifecycle_tests.py

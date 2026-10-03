@@ -36,8 +36,8 @@ public class MainActivity extends Activity {
         });
         // Activate Pizza Button
         ProBtn.open(MainActivity.this);
-        // Callback for devices with Android API level lower than 11
-        if (android.os.Build.VERSION.SDK_INT < 11) {
+        // Callback for devices with Android API level lower than 14
+        if (android.os.Build.VERSION.SDK_INT < 14) {
             ProBtn.onActivityCreated();
         }
     }
@@ -45,16 +45,16 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Callback for devices with Android API level lower than 11
-        if (android.os.Build.VERSION.SDK_INT < 11) {
+        // Callback for devices with Android API level lower than 14
+        if (android.os.Build.VERSION.SDK_INT < 14) {
             ProBtn.onActivityResumed(this);
         }
     }
 
     @Override
     protected void onPause() {
-        // Callback for devices with Android API level lower than 11
-        if (android.os.Build.VERSION.SDK_INT < 11) {
+        // Callback for devices with Android API level lower than 14
+        if (android.os.Build.VERSION.SDK_INT < 14) {
             ProBtn.onActivityPaused();
         }
         super.onPause();
@@ -62,10 +62,11 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        // Callback for devices with Android API level lower than 11
-        if (android.os.Build.VERSION.SDK_INT < 11) {
+        // Callback for devices with Android API level lower than 14
+        if (android.os.Build.VERSION.SDK_INT < 14) {
             ProBtn.onActivityDestroyed(this);
         }
         super.onDestroy();
     }
 }
+
