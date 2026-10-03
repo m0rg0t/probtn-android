@@ -13,8 +13,8 @@ public class OtherActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.other);
-        // Callback for devices with Android API level lower than 11
-        if (android.os.Build.VERSION.SDK_INT < 11) {
+        // Callback for devices with Android API level lower than 14
+        if (android.os.Build.VERSION.SDK_INT < 14) {
             ProBtn.onActivityCreated();
         }
     }
@@ -22,16 +22,16 @@ public class OtherActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Callback for devices with Android API level lower than 11
-        if (android.os.Build.VERSION.SDK_INT < 11) {
+        // Callback for devices with Android API level lower than 14
+        if (android.os.Build.VERSION.SDK_INT < 14) {
             ProBtn.onActivityResumed(this);
         }
     }
 
     @Override
     protected void onPause() {
-        // Callback for devices with Android API level lower than 11
-        if (android.os.Build.VERSION.SDK_INT < 11) {
+        // Callback for devices with Android API level lower than 14
+        if (android.os.Build.VERSION.SDK_INT < 14) {
             ProBtn.onActivityPaused();
         }
         super.onPause();
@@ -39,8 +39,8 @@ public class OtherActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        // Callback for devices with Android API level lower than 11
-        if (android.os.Build.VERSION.SDK_INT < 11) {
+        // Callback for devices with Android API level lower than 14
+        if (android.os.Build.VERSION.SDK_INT < 14) {
             ProBtn.onActivityDestroyed(this);
         }
         super.onDestroy();
